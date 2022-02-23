@@ -1,0 +1,53 @@
+SOLUTION 1.)
+================================================>
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorder(self, root, res):
+        if root:
+            self.inorder(root.left, res)
+            res.append(root.val)
+            self.inorder(root.right, res)
+        
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        
+        if root is None:
+            return 1
+        res = []
+        self.inorder(root, res)
+        
+        for i in range(1, len(res)):
+            if res[i] <= res[i-1]:
+                return 0
+        return 1
+        
+SOLUTION 2.) 
+====================================================>
+
+import sys
+class Solution:      
+    def isBST(self, root, mini, maxi):
+        
+        if root is None:
+            return True
+        
+        if root.val < mini or root.val > maxi:
+            return False
+        
+        return self.isBST(root.left, mini, root.val-1) and self.isBST(root.right, root.val+1, maxi)
+        
+        
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+
+        maxi = sys.maxsize
+        mini = -maxi - 1
+        return self.isBST(root, mini, maxi)
+        
+
+        
+        
