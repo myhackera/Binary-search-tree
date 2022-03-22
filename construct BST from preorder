@@ -1,0 +1,52 @@
+SOLUTION 1.)
+------------------------------------
+
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+        
+        inorder = sorted(preorder)
+        
+        def construct(inorder, preorder):
+            
+            if inorder:
+                
+                index = inorder.index(preorder.pop(0))
+                root  = TreeNode(inorder[index])
+                
+                root.left = construct(inorder[0:index], preorder)
+                root.right = construct(inorder[index+1:], preorder)
+                
+                return root
+            
+        return construct(inorder, preorder)
+        
+TC : O(NlogN)
+SC : O(N)
+
+SOLUTION 2.)
+---------------------------------------
+
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+
+        mn = -sys.maxsize-1
+        mx = sys.maxsize
+        
+        def build(arr, mn, mx):
+            
+            if arr:
+                
+                if arr[0] < mn or arr[0] > mx:
+                    return None
+                
+                root = TreeNode(arr.pop(0))
+                root.left = build(arr, mn, root.val)
+                root.right = build(arr, root.val, mx)
+                
+                return root
+
+            
+
+
+        return build(preorder, mn, mx)
+        
