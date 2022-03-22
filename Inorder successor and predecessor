@@ -22,3 +22,21 @@ class Solution:
             return succ
         else:
             Node(-1)
+
+
+SOLUTION 1.) 
+---------------------------------------
+
+store the inorder traversal in an array and find the successor and predecesssor of key
+
+TC : O(N)
+SC : O(N)
+
+SOLUTION 2.)
+-------------------------------------
+
+For successor , do inorder traversal and find for key if key found return the next of key 
+For predecssor , do preorder traversal if key found return est of traversal
+
+TC : O(N)
+SC : O(1)
