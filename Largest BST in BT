@@ -1,0 +1,37 @@
+import sys
+mx = sys.maxsize
+mn = -sys.maxsize
+
+class Solution:
+    def bst(self, root):
+        
+        if root is None:
+            return 0, mn, mx, 0, True
+            
+        if root.left is None and root.right is None:
+            return 1, root.data, root.data, 1, True
+            
+        left = self.bst(root.left)
+        right = self.bst(root.right)
+        
+        ret = [0, 0, 0, 0, 0]
+        ret[0] = 1 + left[0] + right[0]
+        
+        if left[4] and right[4] and left[1] < root.data and right[2] > root.data:
+            
+            ret[1] = max(right[1], left[1], root.data)
+            ret[2] = min(left[2], right[2], root.data) 
+            
+            ret[3] = ret[0]
+            ret[4] = True
+            
+            return ret
+            
+        ret[3] = max(left[3], right[3])
+        ret[4] = False
+        
+        return ret
+        
+    def largestBst(self, root):
+        
+        return self.bst(root)[3]
