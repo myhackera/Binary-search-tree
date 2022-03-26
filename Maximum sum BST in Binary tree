@@ -1,0 +1,55 @@
+SOLUTION 1.)
+---------------------------------------------------
+
+INTUITION : check every node for bst and if it is bst than find the sum of that substree and store it in a variable 
+            In future if any other bst subtree is found than compare it to previous one and store the maximum of them.
+
+import sys
+class Solution:
+    def findSum(self, root):
+        s = 0
+        q = [root]
+        while q:
+            temp = q.pop()
+            s += temp.val
+            if temp.left:
+                q.append(temp.left)
+            if temp.right:
+                q.append(temp.right)
+        return s
+        
+        
+    def isBST(self, root, mini, maxi):
+        
+        if root is None:
+            return True
+        
+        if root.val < mini or root.val > maxi:
+            return False
+        
+        return self.isBST(root.left, mini, root.val-1) and self.isBST(root.right, root.val+1, maxi)
+        
+        
+    def ValidBST(self, root):
+
+        maxi = sys.maxsize
+        mini = -maxi - 1
+        return self.isBST(root, mini, maxi)
+        
+        
+    def maxSumBST(self, root: Optional[TreeNode]) -> int:
+        
+        summ = 0
+        def check(root):
+            
+            nonlocal summ
+            if root is None:
+                return 
+            if self.ValidBST(root):
+                summ = max(summ, self.findSum(root))
+            check(root.left)
+            check(root.right)
+            
+        check(root)
+        return summ
+        
