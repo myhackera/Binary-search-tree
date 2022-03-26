@@ -1,0 +1,21 @@
+import sys
+def floorInBST(root, X):
+
+    def floor(root, X):
+    
+        if root is None:
+            return sys.maxsize
+            
+        if root.data == X:
+            return root.data
+            
+        if root.data > X:
+            return floor(root.left, X)
+            
+        floorVal = floor(root.right, X)
+        if floorVal <= X:
+            return floorVal
+        else:
+            return root.data
+        
+    return floor(root, X)
