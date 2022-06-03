@@ -1,3 +1,6 @@
+SOLUTION 1.) 
+=============>>>
+
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
@@ -19,4 +22,26 @@ class BSTIterator:
 
     def hasNext(self) -> bool:
     
+        return len(self.stack) > 0
+
+SOLUTION 2.) 
+============>>>>>
+
+class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.stack = []
+        def inorder(root):
+            if root:
+                inorder(root.left)
+                self.stack.append(root.val)
+                inorder(root.right)
+        inorder(root)
+        
+    def next(self) -> int:
+        if self.stack:
+            return self.stack.pop(0)
+        
+
+    def hasNext(self) -> bool:
         return len(self.stack) > 0
