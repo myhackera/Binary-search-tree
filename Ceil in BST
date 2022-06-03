@@ -1,17 +1,13 @@
 def findCeil(root, x):
-    
-    def ceil(root, x):
-    
-        if root is None:
-            return -1
-            
+    # Write your code here.
+    ceil = -1
+    while root:
         if root.data == x:
-            return root.data
-            
-        if root.data < x:
-            return ceil(root.right, x)
-            
-        ceilValue = ceil(root.left, x)
-        return ceilValue if ceilValue >= x else root.data
-        
-    return ceil(root, x)
+            ceil = root.data
+            return ceil
+        elif root.data > x:
+            ceil = root.data
+            root = root.left
+        else:
+            root = root.right
+    return ceil
