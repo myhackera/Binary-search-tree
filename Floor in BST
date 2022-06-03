@@ -1,21 +1,36 @@
 import sys
 def floorInBST(root, X):
 
-    def floor(root, X):
-    
-        if root is None:
-            return sys.maxsize
-            
+    floor_val = -1
+    while root:
         if root.data == X:
-            return root.data
-            
-        if root.data > X:
-            return floor(root.left, X)
-            
-        floorVal = floor(root.right, X)
-        if floorVal <= X:
-            return floorVal
+            floor = root.data
+            return floor
+        elif root.data > X:
+            root = root.left
         else:
-            return root.data
-        
-    return floor(root, X)
+            floor = root.data 
+            root = root.right
+    return floor
+    
+RECURSIVE VERSION
+===================>>>>
+
+def floorInBST(root, X):
+
+    # Write your Code here.
+    floor_val = -1
+
+    def floor(root, X):
+        nonlocal floor_val
+        if root is None:
+            return 
+        elif root.data == X:
+            floor_val = root.data
+        elif root.data > X:
+            floor(root.left, X)
+        else:
+            floor_val = root.data
+            floor(root.right, X)
+    floor(root, X)
+    return floor_val
