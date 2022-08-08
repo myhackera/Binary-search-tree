@@ -1,0 +1,21 @@
+class Solution:
+            
+    def balanceBST(self, root: TreeNode) -> TreeNode:
+        
+        def inorder(root):
+            return inorder(root.left)+[root.val]+inorder(root.right) if root else []
+            
+        def make_bst(arr, s, e):
+            
+            if s > e: return None
+            mid = s+(e-s)//2
+            node = TreeNode(arr[mid])
+            node.left = make_bst(arr, s, mid-1)
+            node.right = make_bst(arr, mid+1, e)
+            
+            return node
+            
+        
+        arr = inorder(root)
+        return make_bst(arr, 0, len(arr)-1)
+        
