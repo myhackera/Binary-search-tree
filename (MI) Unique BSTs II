@@ -1,0 +1,24 @@
+class Solution:
+    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
+        
+        def bst(start, end):
+        
+            l = []
+            if start > end:
+                l.append(None)
+                return l
+            
+            for i in range(start, end+1):
+                left = bst(start, i-1)
+                right = bst(i+1, end)
+                
+                for j in left:
+                    for k in right:
+                        node = TreeNode(i)
+                        node.left = j
+                        node.right = k
+                        l.append(node)
+                
+            return l
+        
+        return bst(1, n)
