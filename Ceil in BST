@@ -11,3 +11,21 @@ def findCeil(root, x):
         else:
             root = root.right
     return ceil
+
+import sys
+class Solution:
+    def findCeil(self,root, inp):
+        ceil = sys.maxsize
+        
+        def dfs(root):
+            
+            nonlocal ceil
+            if not root: return
+            if root.key >= inp:
+                ceil = root.key
+                dfs(root.left)
+            else:
+                dfs(root.right)
+        
+        dfs(root)
+        return ceil
